@@ -6,6 +6,13 @@ services:
       - POSTGRES_PASSWORD=postgres_password # ต้องใส่เสมอ ห้ามว่าง
   redis: # เอามาจาก dockerhub เช่นกัน
     image: 'redis:latest'
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '4000:80' # map outside to inside
   api:
     build:
       dockerfile: Dockerfile.dev # ไม่ต้องระบุ dir
