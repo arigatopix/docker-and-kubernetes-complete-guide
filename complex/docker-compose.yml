@@ -2,5 +2,22 @@ version: '3'
 services:
   postgres: # เอามาจาก dockerhub ใช้ latest เสมอ
     image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password # ต้องใส่เสมอ ห้ามว่าง
   redis: # เอามาจาก dockerhub เช่นกัน
     image: 'redis:latest'
+  server:
+    build:
+      dockerfile: Dockerfile.dev # ไม่ต้องระบุ dir
+      context: ./server # ให้หา Dockerfile.dev ที่ไหน
+    volumes:
+      - /app/node_modules # ให้ inside container ไม่ overwrite folder ใช้ dependencies ร่วมกัน
+      - ./server:/app # map container to local machine เมื่อแก้ไข code จะได้ไม่ต้อง build image ใหม่
+    environment:
+      - REDIS_HOST=redis # รับมาจาก docker-compose > services ด้านบน
+      - REDIS_PORT=6379
+      - PGHOST=postgres # รับมาจาก docker-compose > services ด้านบน
+      - PGUSER=postgres # default
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres # ใช้ password อะไรก็ได้ run ครั้งแรกใช้อันนี้ไปแล้ว
+      - PGPORT=5432
