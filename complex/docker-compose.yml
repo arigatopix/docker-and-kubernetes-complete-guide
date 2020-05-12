@@ -1,0 +1,6 @@
+version: '3'
+services:
+  postgres: # เอามาจาก dockerhub ใช้ latest เสมอ
+    image: 'postgres:latest'
+  redis: # เอามาจาก dockerhub เช่นกัน
+    image: 'redis:latest'
