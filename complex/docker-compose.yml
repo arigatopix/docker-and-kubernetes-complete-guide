@@ -21,3 +21,17 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres # ใช้ password อะไรก็ได้ run ครั้งแรกใช้อันนี้ไปแล้ว
       - PGPORT=5432
+  client: # config เหมือน server services
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules #bookmark container to local
+      - ./client:/app # map local to container (lecture 76)
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
