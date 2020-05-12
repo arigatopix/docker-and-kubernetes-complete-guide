@@ -6,7 +6,7 @@ services:
       - POSTGRES_PASSWORD=postgres_password # ต้องใส่เสมอ ห้ามว่าง
   redis: # เอามาจาก dockerhub เช่นกัน
     image: 'redis:latest'
-  server:
+  api:
     build:
       dockerfile: Dockerfile.dev # ไม่ต้องระบุ dir
       context: ./server # ให้หา Dockerfile.dev ที่ไหน
