@@ -3,7 +3,7 @@ const keys = require('./keys');
 // Express App Setup
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+const cors = require('cors'); // ใช้เมื่อข้าม url, Cross origin
 
 const app = express();
 app.use(cors());
@@ -16,20 +16,20 @@ const pgClient = new Pool({
   host: keys.pgHost,
   database: keys.pgDatabase,
   password: keys.pgPassword,
-  port: keys.pgPort
+  port: keys.pgPort,
 });
 pgClient.on('error', () => console.log('Lost PG connection'));
 
 pgClient
   .query('CREATE TABLE IF NOT EXISTS values (number INT)')
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 // Redis Client Setup
 const redis = require('redis');
 const redisClient = redis.createClient({
   host: keys.redisHost,
   port: keys.redisPort,
-  retry_strategy: () => 1000
+  retry_strategy: () => 1000,
 });
 const redisPublisher = redisClient.duplicate();
 
@@ -40,24 +40,29 @@ app.get('/', (req, res) => {
 });
 
 app.get('/values/all', async (req, res) => {
+  // แสดงผลโดยดึงจาก postgres
   const values = await pgClient.query('SELECT * from values');
 
   res.send(values.rows);
 });
 
 app.get('/values/current', async (req, res) => {
+  // hgetall คือแสดงค่า (value, pair) cache จาก redis
   redisClient.hgetall('values', (err, values) => {
     res.send(values);
   });
 });
 
 app.post('/values', async (req, res) => {
+  // ใส่ตัวเลขจาก client
   const index = req.body.index;
 
   if (parseInt(index) > 40) {
+    // คำนวณ Fib มากกว่า 40 จะทำงานช้ามาก
     return res.status(422).send('Index too high');
   }
 
+  // ส่งไปที่ Worker, และ Posgrest
   redisClient.hset('values', index, 'Nothing yet!');
   redisPublisher.publish('insert', index);
   pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
@@ -65,6 +70,6 @@ app.post('/values', async (req, res) => {
   res.send({ working: true });
 });
 
-app.listen(5000, err => {
+app.listen(5000, (err) => {
   console.log('Listening');
 });
