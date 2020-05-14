@@ -62,6 +62,11 @@ app.post('/values', async (req, res) => {
     return res.status(422).send('Index too high');
   }
 
+  if (parseInt(index) <= 0) {
+    // คำนวณ Fib มากกว่า 40 จะทำงานช้ามาก
+    return res.status(406).send('Index should be greater than 0');
+  }
+
   // ส่งไปที่ Worker, และ Posgrest
   redisClient.hset('values', index, 'Nothing yet!');
   redisPublisher.publish('insert', index);
