@@ -1,0 +1,20 @@
+language: generic # กำหนดภาษาที่ test
+sudo: required
+
+services:
+  - docker # access to docker
+
+# Build docker image for Client side specific file
+before_install:
+  - docker build -t arigatopix/docker-react-test -f ./client/Dockerfile.dev ./client
+
+# test script for Client side (ต้อง exit หลัง test จบ)
+script:
+  - docker run -e CI=true arigatopix/docker-react-test npm run test
+
+# Build docker image for Production & push to Docker Hub
+after_install:
+  - docker build -t arigatopix/multi-client ./client
+  - docker build -t arigatopix/multi-server ./server
+  - docker build -t arigatopix/multi-worker ./worker
+  - docker build -t arigatopix/multi-nginx ./nginx
