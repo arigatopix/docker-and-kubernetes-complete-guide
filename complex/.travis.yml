@@ -13,7 +13,7 @@ script:
   - docker run -e CI=true arigatopix/docker-react-test npm run test
 
 # Build docker image for Production & push to Docker Hub
-after_install:
+after_success:
   - docker build -t arigatopix/multi-client ./client
   - docker build -t arigatopix/multi-nginx ./nginx
   - docker build -t arigatopix/multi-server ./server
