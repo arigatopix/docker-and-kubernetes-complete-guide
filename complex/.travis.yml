@@ -15,6 +15,13 @@ script:
 # Build docker image for Production & push to Docker Hub
 after_install:
   - docker build -t arigatopix/multi-client ./client
+  - docker build -t arigatopix/multi-nginx ./nginx
   - docker build -t arigatopix/multi-server ./server
   - docker build -t arigatopix/multi-worker ./worker
-  - docker build -t arigatopix/multi-nginx ./nginx
+  # Login to the Docker CLI https://docs.travis-ci.com/user/docker/
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push arigatopix/multi-client
+  - docker push arigatopix/multi-nginx
+  - docker push arigatopix/multi-server
+  - docker push arigatopix/multi-worker
