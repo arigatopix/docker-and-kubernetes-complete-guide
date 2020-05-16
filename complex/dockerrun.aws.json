@@ -4,7 +4,20 @@
     {
       "name": "client",
       "image": "arigatopix/multi-client",
-      "hostname": "client"
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "arigatopix/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "arigatopix/multi-worker",
+      "hostname": "worker",
+      "essential": false
     }
   ]
 }
