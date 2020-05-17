@@ -23,10 +23,10 @@ after_success:
   # Take those images and push them to docker hub
   - docker push arigatopix/multi-client
   - docker push arigatopix/multi-nginx
-  - docker push arigatopix/multi-server
+  - docker push arigatopix/multi-servers
   - docker push arigatopix/multi-worker
 
-# Deploy to AWS before test (*Dockerrun.aws.json ใช้ตัวใหญ่)
+# Deploy to AWS before test (Dockerrun.aws.json ใช้ตัวใหญ่)
 deploy:
   edge: true
   provider: elasticbeanstalk
