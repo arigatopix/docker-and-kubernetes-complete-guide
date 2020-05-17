@@ -26,8 +26,9 @@ after_success:
   - docker push arigatopix/multi-server
   - docker push arigatopix/multi-worker
 
-# Deploy to AWS before test
+# Deploy to AWS before test (*Dockerrun.aws.json ใช้ตัวใหญ่)
 deploy:
+  edge: true
   provider: elasticbeanstalk
   region: ap-southeast-1
   app: multi-docker
