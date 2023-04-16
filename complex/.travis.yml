@@ -10,3 +10,8 @@ before_install:
   - gcloud config set project multi-cluster-383905
   - gcloud config set compute/zone asia-southeast1-c
   - gcloud container clusters get-credentials multi-cluster
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t arigatopix/react-test -f ./client/Dockerfile.dev
+
+script:
+  - docker run -e CI=True arigatopix/react-test npm test
