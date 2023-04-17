@@ -11,6 +11,6 @@ docker push arigatopix/multi-server:$SHA
 docker push arigatopix/multi-worker:$SHA
 
 kubectl apply -f k8s
-kubectl set image deployments/server-deployment server=arigatpix/multi-server:$SHA
-kubectl set image deployments/client-deployment client=arigatpix/multi-client:$SHA
-kubectl set image deployments/worker-deployment worker=arigatpix/multi-worker:$SHA
+kubectl set image deployments/server-deployment server=arigatopix/multi-server:$SHA
+kubectl set image deployments/client-deployment client=arigatopix/multi-client:$SHA
+kubectl set image deployments/worker-deployment worker=arigatopix/multi-worker:$SHA
