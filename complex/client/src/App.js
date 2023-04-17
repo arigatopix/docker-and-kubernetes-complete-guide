@@ -1,35 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import OtherPage from './OtherPage';
 import Fib from './Fib';
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Fibonacci Calculator</h1>
-            <div className="flex-container">
-              <div>
-                <Link to="/">Home</Link>
-              </div>
-              <div>
-                <Link to="/otherpage">Other Page</Link>
-              </div>
-            </div>
-          </header>
-          <div className="content">
-            <Route exact path="/" component={Fib} />
-            <Route path="/otherpage" component={OtherPage} />
-          </div>
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            FIB K8s
+          </a>
+          <Link to="/">Home</Link>
+          <Link to="/otherpage">Other Page</Link>
+        </header>
+        <div>
+          <Route exact path="/" component={Fib} />
+          <Route path="/otherpage" component={OtherPage} />
         </div>
-      </Router>
-    );
-  }
+      </div>
+    </Router>
+  );
 }
 
 export default App;
