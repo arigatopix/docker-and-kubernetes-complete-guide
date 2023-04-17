@@ -1,5 +1,9 @@
 apiVersion: skaffold/v2beta12
 kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*
 build:
   local:
     push: false
@@ -12,11 +16,23 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
-          - src: 'src/**/*.CSS'
+          - src: 'src/**/*.css'
             dest: .
           - src: 'src/**/*.html'
             dest: .
-deploy:
-  kubectl:
-    manifests:
-      - k8s/client-deployment.yaml
+    - image: arigatopix/multi-worker
+      context: worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: arigatopix/multi-server
+      context: server
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .

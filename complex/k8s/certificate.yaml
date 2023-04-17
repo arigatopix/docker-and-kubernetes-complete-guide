@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: arigatopix-com-tls
 spec:
-  secertName: arigatopix-com
+  secretName: arigatopix-com
   issuerRef:
     name: letencrypt-prod
     kind: ClusterIssuer
