@@ -1,0 +1,13 @@
+# init .yml version lastest v3
+version: '3'
+
+# setting containers
+services:
+  # source of container
+  redis-server:
+    image: 'redis'
+  node-app:
+    restart: on-failure
+    build: .
+    ports:
+      - '4001:8081'
