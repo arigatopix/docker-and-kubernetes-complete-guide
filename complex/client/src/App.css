@@ -9,9 +9,17 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 200px;
   padding: 20px;
   color: white;
+}
+
+div.flex-container {
+  display: flex;
+  justify-content: center;
+}
+div.content {
+  margin-top: 20px;
 }
 
 .App-title {
@@ -22,7 +30,19 @@
   font-size: large;
 }
 
+.App a {
+  color: #ccc;
+  margin: 5px;
+}
+.App.content {
+  margin: 50px;
+}
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

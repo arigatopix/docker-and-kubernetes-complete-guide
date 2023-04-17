@@ -13,10 +13,16 @@ class App extends Component {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Welcome to React</h1>
-            <Link to="/">Home</Link>
-            <Link to="/otherpage">Other Page</Link>
+            <div className="flex-container">
+              <div>
+                <Link to="/">Home</Link>
+              </div>
+              <div>
+                <Link to="/otherpage">Other Page</Link>
+              </div>
+            </div>
           </header>
-          <div>
+          <div className="content">
             <Route exact path="/" component={Fib} />
             <Route path="/otherpage" component={OtherPage} />
           </div>
