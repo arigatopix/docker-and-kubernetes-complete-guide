@@ -1,4 +1,4 @@
-apiVersion: skaffold/v4beta2
+apiVersion: skaffold/v2beta12
 kind: Config
 build:
   local:
@@ -16,3 +16,7 @@ build:
             dest: .
           - src: 'src/**/*.html'
             dest: .
+deploy:
+  kubectl:
+    manifests:
+      - k8s/client-deployment.yaml
